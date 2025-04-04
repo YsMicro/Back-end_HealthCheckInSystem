@@ -16,4 +16,9 @@ public class UserController {
     public User findUserById(Integer user_id) {
         return userService.findUserById(user_id);
     }
+
+    @RequestMapping("/findUserByName")
+    public User findUserByName(String user_name) {
+        return userService.findUserByName(user_name);
+    }
 }

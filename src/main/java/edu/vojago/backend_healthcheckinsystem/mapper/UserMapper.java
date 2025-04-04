@@ -9,4 +9,7 @@ public interface UserMapper {
     @Select("select * from `my healthcheck-in app`.users where user_id = #{user_id}")
     User findUserById(Integer user_id);
 
+    @Select("SELECT * FROM `my healthcheck-in app`.users WHERE user_name = #{user_name}")
+    User findUserByName(String user_name);
+
 }
