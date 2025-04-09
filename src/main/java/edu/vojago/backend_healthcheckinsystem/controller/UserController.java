@@ -38,6 +38,9 @@ public class UserController {
         if (u == null) {
             //若无结果，则注册
             userService.registerUser(username, password);
+            if (findUserByName(username) == null) {
+                return Result.error("注册失败");
+            }
             return Result.success();
         } else {  //已存在同名用户
             return Result.error("用户名已注册");

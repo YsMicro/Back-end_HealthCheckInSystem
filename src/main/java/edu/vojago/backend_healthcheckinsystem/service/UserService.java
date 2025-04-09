@@ -6,7 +6,6 @@ public interface UserService {
     User findUserById(Integer user_id);
 
     User findUserByName(String username);
-
     //新增用户
     void registerUser(String username, String password);
 

@@ -10,8 +10,7 @@ public interface UserMapper {
 
     @Insert("INSERT INTO `my healthcheck-in app`.users(username,password,create_time)" +
             "VALUES(#{username},#{password},now())")
-    default void add(String username, String password) {
-    }
+    void add(String username, String password);
 
     @Select("SELECT * FROM `my healthcheck-in app`.users where user_id = #{user_id}")
     User findUserById(Integer user_id);
