@@ -10,6 +10,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
+
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
@@ -20,7 +21,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByName(String user_name) {
-        return userMapper.findUserByName(user_name);
+    public User findUserByName(String username) {
+        return userMapper.findUserByName(username);
+    }
+
+    public void registerUser(String username, String password) {
+        //对密码进行加密处理
+//        String hashedPassword = password;
+        userMapper.add(username, password);
     }
 }

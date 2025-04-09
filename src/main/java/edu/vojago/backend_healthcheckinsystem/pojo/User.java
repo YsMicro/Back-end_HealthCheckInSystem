@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class User {
     private Integer user_id;            //用户唯一ID
     private String username;            //用户名
-    private String password;            //密码（BCrypt加密存储）
+    private String password;            //密码
     private String nickname;            //用户昵称
     private String gender;              //性别
     private String avatar_url;          //头像路径

@@ -5,5 +5,9 @@ import edu.vojago.backend_healthcheckinsystem.pojo.User;
 public interface UserService {
     User findUserById(Integer user_id);
 
-    User findUserByName(String user_name);
+    User findUserByName(String username);
+
+    //新增用户
+    void registerUser(String username, String password);
+
 }
