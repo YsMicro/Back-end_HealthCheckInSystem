@@ -3,12 +3,15 @@ package edu.vojago.backend_healthcheckinsystem.controller;
 import edu.vojago.backend_healthcheckinsystem.pojo.Result;
 import edu.vojago.backend_healthcheckinsystem.pojo.User;
 import edu.vojago.backend_healthcheckinsystem.service.UserService;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+@Validated
 public class UserController {
 
     private final UserService userService;
@@ -32,7 +35,7 @@ public class UserController {
 
     //注册用户
     @PostMapping("/register")
-    public Result register(String username, String password) {
+    public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
         //查询用户
         User u = userService.findUserByName(username);
         if (u == null) {
