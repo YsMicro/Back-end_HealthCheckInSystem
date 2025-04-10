@@ -3,12 +3,16 @@ package edu.vojago.backend_healthcheckinsystem.controller;
 import edu.vojago.backend_healthcheckinsystem.pojo.Result;
 import edu.vojago.backend_healthcheckinsystem.pojo.User;
 import edu.vojago.backend_healthcheckinsystem.service.UserService;
+import edu.vojago.backend_healthcheckinsystem.utils.JwtUtil;
 import edu.vojago.backend_healthcheckinsystem.utils.MD5Util;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -83,6 +87,10 @@ public class UserController {
             return Result.error("密码错误");
         }
         //密码正确，用户登录
-        return Result.success("jwt token令牌");
+        Map<String, Object> claims = new HashMap<>();    //生成token
+        claims.put("id", loginUser.getUserId());
+        claims.put("username", loginUser.getUsername());
+        String token = JwtUtil.generateToken(claims);
+        return Result.success(token);
     }
 }
