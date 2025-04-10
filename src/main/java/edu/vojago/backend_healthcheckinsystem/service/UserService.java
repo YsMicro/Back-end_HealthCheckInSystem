@@ -9,4 +9,6 @@ public interface UserService {
     //新增用户
     void registerUser(String username, String password);
 
+    void deleteUserByName(String username);
+
 }

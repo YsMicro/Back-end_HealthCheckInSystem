@@ -1,6 +1,7 @@
 package edu.vojago.backend_healthcheckinsystem.mapper;
 
 import edu.vojago.backend_healthcheckinsystem.pojo.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -17,5 +18,8 @@ public interface UserMapper {
 
     @Select("SELECT * FROM `my healthcheck-in app`.users WHERE username = #{username}")
     User findUserByName(String username);
+
+    @Delete("DELETE FROM `my healthcheck-in app`.users WHERE username = #{username}")
+    void deleteUserByName(String username);
 
 }

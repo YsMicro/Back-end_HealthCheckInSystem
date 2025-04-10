@@ -25,9 +25,15 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserByName(username);
     }
 
+    @Override
     public void registerUser(String username, String password) {
         //对密码进行加密处理
 //        String hashedPassword = password;
         userMapper.add(username, password);
+    }
+
+    @Override
+    public void deleteUserByName(String username) {
+        userMapper.deleteUserByName(username);
     }
 }

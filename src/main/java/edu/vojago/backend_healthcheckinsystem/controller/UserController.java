@@ -30,7 +30,7 @@ public class UserController {
         return userService.findUserByName(username);
     }
 
-    //增加
+    //注册用户
     @PostMapping("/register")
     public Result register(String username, String password) {
         //查询用户
@@ -45,6 +45,20 @@ public class UserController {
         } else {  //已存在同名用户
             return Result.error("用户名已注册");
         }
+    }
 
+    @PostMapping("/DeleteUserByName")
+    public Result DeleteUserByName(String username) {
+        userService.findUserByName(username);
+        if (findUserByName(username) == null) {
+            return Result.error("不存在此用户！");
+        } else {
+            userService.deleteUserByName(username);
+
+        }
+        if (findUserByName(username) == null) {
+            return Result.success("用户已删除");
+        }
+        return Result.error("删除失败");
     }
 }
