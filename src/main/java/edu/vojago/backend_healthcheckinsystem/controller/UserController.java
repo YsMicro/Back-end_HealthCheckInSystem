@@ -3,6 +3,7 @@ package edu.vojago.backend_healthcheckinsystem.controller;
 import edu.vojago.backend_healthcheckinsystem.pojo.Result;
 import edu.vojago.backend_healthcheckinsystem.pojo.User;
 import edu.vojago.backend_healthcheckinsystem.service.UserService;
+import edu.vojago.backend_healthcheckinsystem.utils.MD5Util;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,7 @@ public class UserController {
         }
     }
 
+    //删除用户
     @PostMapping("/DeleteUserByName")
     public Result DeleteUserByName(String username) {
         userService.findUserByName(username);
@@ -63,5 +65,24 @@ public class UserController {
             return Result.success("用户已删除");
         }
         return Result.error("删除失败");
+    }
+
+    @PostMapping("/login")
+    public Result<String> login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
+
+        //通过username查询用户
+        User loginUser = userService.findUserByName(username);
+
+        //判断用户是否存在
+        if (loginUser == null) {
+            return Result.error("用户不存在");
+        }
+
+        //判断密码是否正确
+        if (!(loginUser.getPassword().equals(MD5Util.encrypt(password)))) {
+            return Result.error("密码错误");
+        }
+        //密码正确，用户登录
+        return Result.success("jwt token令牌");
     }
 }
