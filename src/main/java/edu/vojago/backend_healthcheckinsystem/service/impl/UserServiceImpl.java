@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
     public void deleteUserByName(String username) {
         userMapper.deleteUserByName(username);
     }
+
+    @Override
+    public void updateUserLastLoginTime(String username) {
+        userMapper.updateUserLastLoginTime(username);
+    }
 }

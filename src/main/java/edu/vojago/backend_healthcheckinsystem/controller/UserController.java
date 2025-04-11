@@ -86,6 +86,10 @@ public class UserController {
             return Result.error("密码错误");
         }
         //密码正确，用户登录
+
+        //更新
+        userService.updateUserLastLoginTime(loginUser.getUsername());
+
         Map<String, Object> claims = new HashMap<>();    //生成token
         claims.put("id", loginUser.getUserId());
         claims.put("username", loginUser.getUsername());

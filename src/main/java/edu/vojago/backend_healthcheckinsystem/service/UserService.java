@@ -11,4 +11,6 @@ public interface UserService {
 
     void deleteUserByName(String username);
 
+    void updateUserLastLoginTime(String username);
+
 }
