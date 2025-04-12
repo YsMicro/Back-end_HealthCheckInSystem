@@ -1,6 +1,7 @@
 package edu.vojago.backend_healthcheckinsystem.interceptors;
 
 import edu.vojago.backend_healthcheckinsystem.utils.JwtUtil;
+import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         try {
             Map<String, Object> claims = JwtUtil.verifyToken(token);
+
+            //把业务数据存储到ThreadLocal中
+            ThreadLocalUtil.set(claims);
+
             //放行
             return true;
         } catch (Exception e) {
@@ -24,5 +29,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             //不放行
             return false;
         }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        //清除ThreadLocal中的数据
+        ThreadLocalUtil.remove();
     }
 }

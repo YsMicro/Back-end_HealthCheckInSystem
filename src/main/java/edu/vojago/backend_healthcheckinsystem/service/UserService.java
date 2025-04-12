@@ -13,4 +13,6 @@ public interface UserService {
 
     void updateUserLastLoginTime(String username);
 
+    //更新
+    void update(User user);
 }

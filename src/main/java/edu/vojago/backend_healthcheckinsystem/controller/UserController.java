@@ -5,6 +5,7 @@ import edu.vojago.backend_healthcheckinsystem.pojo.User;
 import edu.vojago.backend_healthcheckinsystem.service.UserService;
 import edu.vojago.backend_healthcheckinsystem.utils.JwtUtil;
 import edu.vojago.backend_healthcheckinsystem.utils.MD5Util;
+import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -99,11 +100,19 @@ public class UserController {
 
     //获取用户详细信息
     @GetMapping("/userInfo")
-    public Result<User> userInfo(@RequestHeader(name = "Authorization") String token) {
+    public Result<User> userInfo(/*@RequestHeader(name = "Authorization") String token*/) {
         //通过username查询用户
-        Map<String, Object> map = JwtUtil.verifyToken(token);
+//        Map<String, Object> map = JwtUtil.verifyToken(token);
+        Map<String, Object> map = ThreadLocalUtil.get();
         String username = (String) map.get("username");
         User user = userService.findUserByName(username);
+        return Result.success(user);
+    }
+
+    //更新用户数据
+    @PutMapping("/update")
+    public Result update(@RequestBody User user) {
+        userService.update(user);
         return Result.success(user);
     }
 }
