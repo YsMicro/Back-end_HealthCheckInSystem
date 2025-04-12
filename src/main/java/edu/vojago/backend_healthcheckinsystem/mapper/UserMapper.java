@@ -24,4 +24,14 @@ public interface UserMapper {
             "WHERE username = #{username}")
     void updateUserLastLoginTime(String username);
 
+    @Update("UPDATE `my healthcheck-in app`.users SET " +
+            "nickname = #{nickname}, " +
+            "gender = #{gender}, " +
+            "`avatar_url` = #{avatarUrl}, " +
+            "phone = #{phone}, " +
+            "email = #{email} " +
+            "WHERE user_id = #{userId}")
+    void update(User user);
+
+
 }
