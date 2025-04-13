@@ -4,12 +4,16 @@ import edu.vojago.backend_healthcheckinsystem.mapper.UserMapper;
 import edu.vojago.backend_healthcheckinsystem.pojo.User;
 import edu.vojago.backend_healthcheckinsystem.service.UserService;
 import edu.vojago.backend_healthcheckinsystem.utils.MD5Util;
+import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
-    private MD5Util md5Util;
+//    private MD5Util md5Util;
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
@@ -48,5 +52,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         userMapper.update(user);
+    }
+
+    @Override
+    public void updateAvatar(String avatarUrl) {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        userMapper.updateAvatar(avatarUrl, userId);
     }
 }
