@@ -8,6 +8,7 @@ import edu.vojago.backend_healthcheckinsystem.utils.MD5Util;
 import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -120,6 +121,37 @@ public class UserController {
     @PatchMapping("/updateAvatar")
     public Result updateAvatar(@RequestParam @URL String avatarUrl) {
         userService.updateAvatar(avatarUrl);
+        return Result.success();
+    }
+
+    @PatchMapping("/updatePassword")
+    public Result updatePassword(@RequestBody Map<String, String> params) {
+        //校验数据
+        String oldPassword = params.get("oldPassword");
+        String newPassword = params.get("newPassword");
+        String rePassword = params.get("rePassword");
+
+        if (!StringUtils.hasLength(oldPassword) || !StringUtils.hasLength(newPassword) || !StringUtils.hasLength(rePassword)) {
+            return Result.error("缺少密码数据");
+        }
+
+        //原密码是否正确
+        //调用userService拿到原密码，和oldPassword进行比对
+        Map<String, Object> map = ThreadLocalUtil.get();
+        String username = (String) map.get("username");
+        User loginUser = userService.findUserByName(username);
+        if (!loginUser.getPassword().equals(MD5Util.encrypt(oldPassword))) {
+            return Result.error("旧密码不正确");
+        }
+        if (loginUser.getPassword().equals(MD5Util.encrypt(newPassword))) {
+            return Result.error("新密码不能和旧密码一致");
+        }
+        if (!rePassword.equals(newPassword)) {
+            return Result.error("两次密码不一致");
+        }
+
+        //验证成功，修改密码
+        userService.updatePassword(newPassword);
         return Result.success();
     }
 }

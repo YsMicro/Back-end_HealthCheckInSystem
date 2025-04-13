@@ -37,4 +37,9 @@ public interface UserMapper {
             "avatar_url=#{avatarUrl} WHERE " +
             "user_id=#{userId}")
     void updateAvatar(String avatarUrl, Integer userId);
+
+    @Update("UPDATE `my healthcheck-in app`.users SET " +
+            "password = #{newPassword} " +
+            "WHERE user_id = #{userId}")
+    void updatePassword(String newPassword, Integer userId);
 }
