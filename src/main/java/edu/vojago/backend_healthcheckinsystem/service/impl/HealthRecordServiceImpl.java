@@ -7,6 +7,7 @@ import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -16,6 +17,13 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 
     public HealthRecordServiceImpl(HealthRecordMapper healthRecordMapper) {
         this.healthRecordMapper = healthRecordMapper;
+    }
+
+    @Override
+    public List<HealthRecord> getHealthRecord() {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        return healthRecordMapper.getHealthRecord(userId);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package edu.vojago.backend_healthcheckinsystem.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class HealthRecord {
     private Double temperature;         //体温（单位：℃）
     private List<String> symptoms;      //症状（JSON数组，如["咳嗽","乏力"]）
     private String remark;              //备注（用户自定义输入）
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime recordTime;  //记录时间
     private Integer syncStatus;         //同步状态（0-未同步，1-已同步）
 }

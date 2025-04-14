@@ -6,6 +6,8 @@ import edu.vojago.backend_healthcheckinsystem.service.HealthRecordService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/healthRecord")
 public class HealthRecordController {
@@ -16,9 +18,10 @@ public class HealthRecordController {
         this.healthRecordService = healthRecordService;
     }
 
-    @GetMapping("/getHealthRecord")
-    public Result<String> getHealthRecord() {
-        return Result.success("获取所有打卡记录！");
+    @GetMapping
+    public Result<List<HealthRecord>> getHealthRecord() {
+        List<HealthRecord> hr = healthRecordService.getHealthRecord();
+        return Result.success(hr);
     }
 
     @PostMapping
