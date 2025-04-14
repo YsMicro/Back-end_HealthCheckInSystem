@@ -35,4 +35,10 @@ public class HealthRecordController {
         healthRecordService.updateHealthRecord(healthRecord);
         return Result.success();
     }
+
+    @DeleteMapping
+    public Result deleteHealthRecord(@RequestBody HealthRecord healthRecord) {
+        healthRecordService.deleteHealthRecord(healthRecord);
+        return Result.success();
+    }
 }

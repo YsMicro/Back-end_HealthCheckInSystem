@@ -1,6 +1,7 @@
 package edu.vojago.backend_healthcheckinsystem.service.impl;
 
 import edu.vojago.backend_healthcheckinsystem.mapper.HealthRecordMapper;
+import edu.vojago.backend_healthcheckinsystem.mapper.UserMapper;
 import edu.vojago.backend_healthcheckinsystem.pojo.HealthRecord;
 import edu.vojago.backend_healthcheckinsystem.service.HealthRecordService;
 import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
@@ -14,9 +15,11 @@ import java.util.Map;
 public class HealthRecordServiceImpl implements HealthRecordService {
 
     private final HealthRecordMapper healthRecordMapper;
+    private final UserMapper userMapper;
 
-    public HealthRecordServiceImpl(HealthRecordMapper healthRecordMapper) {
+    public HealthRecordServiceImpl(HealthRecordMapper healthRecordMapper, UserMapper userMapper) {
         this.healthRecordMapper = healthRecordMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -39,5 +42,11 @@ public class HealthRecordServiceImpl implements HealthRecordService {
     public void updateHealthRecord(HealthRecord healthRecord) {
         healthRecord.setRecordTime(LocalDateTime.now());
         healthRecordMapper.updateHealthRecord(healthRecord);
+    }
+
+    @Override
+    public void deleteHealthRecord(HealthRecord healthRecord) {
+        Integer recordId = healthRecord.getRecordId();
+        healthRecordMapper.deleteHealthRecord(recordId);
     }
 }

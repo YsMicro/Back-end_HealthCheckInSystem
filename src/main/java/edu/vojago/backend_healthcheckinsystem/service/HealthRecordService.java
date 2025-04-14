@@ -14,4 +14,6 @@ public interface HealthRecordService {
 
     //更新健康记录
     void updateHealthRecord(HealthRecord healthRecord);
+
+    void deleteHealthRecord(HealthRecord healthRecord);
 }

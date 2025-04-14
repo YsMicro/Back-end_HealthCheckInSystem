@@ -1,10 +1,7 @@
 package edu.vojago.backend_healthcheckinsystem.mapper;
 
 import edu.vojago.backend_healthcheckinsystem.pojo.HealthRecord;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -28,4 +25,8 @@ public interface HealthRecordMapper {
             "record_time = #{recordTime} " +
             "WHERE record_id = #{recordId}")
     void updateHealthRecord(HealthRecord healthRecord);
+
+    //删除健康记录
+    @Delete("DELETE FROM `my healthcheck-in app`.health_records WHERE record_id = #{recordId}")
+    void deleteHealthRecord(Integer recordId);
 }
