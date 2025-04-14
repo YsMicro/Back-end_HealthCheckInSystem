@@ -33,7 +33,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-//        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
         //清除ThreadLocal中的数据
         ThreadLocalUtil.remove();
     }
