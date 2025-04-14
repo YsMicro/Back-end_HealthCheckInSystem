@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class HealthRecord {
+    @NotNull(groups = Update.class)
     private Integer recordId;          //记录唯一ID好
     private Integer userId;            //关联用户ID
     @NotNull
@@ -26,4 +28,17 @@ public class HealthRecord {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime recordTime;  //记录时间
     private Integer syncStatus;         //同步状态（0-未同步，1-已同步）
+
+    //Validation分组校验
+    //若校验项未指定分组，则属于Default分组
+    //分组之间可以继承
+    public interface Add extends Default {
+    }
+
+    ;
+
+    public interface Update extends Default {
+    }
+
+    ;
 }

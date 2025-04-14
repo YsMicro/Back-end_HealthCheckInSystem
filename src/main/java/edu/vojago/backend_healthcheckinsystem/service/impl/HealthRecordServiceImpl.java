@@ -34,4 +34,10 @@ public class HealthRecordServiceImpl implements HealthRecordService {
         healthRecord.setUserId(userId);
         healthRecordMapper.addHealthRecord(healthRecord);
     }
+
+    @Override
+    public void updateHealthRecord(HealthRecord healthRecord) {
+        healthRecord.setRecordTime(LocalDateTime.now());
+        healthRecordMapper.updateHealthRecord(healthRecord);
+    }
 }

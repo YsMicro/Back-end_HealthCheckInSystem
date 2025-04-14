@@ -25,9 +25,14 @@ public class HealthRecordController {
     }
 
     @PostMapping
-    public Result addHealthRecord(@RequestBody @Validated HealthRecord healthRecord) {
+    public Result addHealthRecord(@RequestBody @Validated(HealthRecord.Add.class) HealthRecord healthRecord) {
         healthRecordService.addHealthRecord(healthRecord);
         return Result.success();
     }
 
+    @PutMapping
+    public Result updateHealthRecord(@RequestBody @Validated(HealthRecord.Update.class) HealthRecord healthRecord) {
+        healthRecordService.updateHealthRecord(healthRecord);
+        return Result.success();
+    }
 }

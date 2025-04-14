@@ -4,6 +4,7 @@ import edu.vojago.backend_healthcheckinsystem.pojo.HealthRecord;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -18,4 +19,13 @@ public interface HealthRecordMapper {
     //查询当前用户的所有健康记录
     @Select("SELECT * FROM `my healthcheck-in app`.health_records WHERE user_id=#{userId}")
     List<HealthRecord> getHealthRecord(Integer userId);
+
+    //更新修改健康记录
+    @Update("UPDATE `my healthcheck-in app`.health_records SET " +
+            "temperature = #{temperature}, " +
+            "symptoms = #{symptoms, typeHandler=edu.vojago.backend_healthcheckinsystem.handler.ListToJsonTypeHandler}, " +
+            "remark = #{remark}, " +
+            "record_time = #{recordTime} " +
+            "WHERE record_id = #{recordId}")
+    void updateHealthRecord(HealthRecord healthRecord);
 }
