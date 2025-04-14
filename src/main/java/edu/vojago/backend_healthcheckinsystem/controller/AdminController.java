@@ -6,12 +6,10 @@ import edu.vojago.backend_healthcheckinsystem.service.AdminService;
 import edu.vojago.backend_healthcheckinsystem.service.OperationLogService;
 import edu.vojago.backend_healthcheckinsystem.utils.JwtUtil;
 import edu.vojago.backend_healthcheckinsystem.utils.MD5Util;
+import edu.vojago.backend_healthcheckinsystem.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,4 +69,20 @@ public class AdminController {
         return Result.success(token);
     }
 
+    @GetMapping("/adminInfo")
+    public Result<Admin> adminInfo() {
+        // 从ThreadLocal中获取当前管理员ID
+        Integer adminId = ThreadLocalUtil.getAdminId();
+        if (adminId == null) {
+            return Result.error("未登录或登录已过期");
+        }
+
+        // 通过adminId查询管理员信息
+        Admin admin = adminService.findAdminById(adminId);
+        if (admin == null) {
+            return Result.error("管理员不存在");
+        }
+
+        return Result.success(admin);
+    }
 }

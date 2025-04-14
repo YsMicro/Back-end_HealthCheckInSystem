@@ -9,4 +9,7 @@ public interface AdminMapper {
 
     @Select("SELECT * FROM `my healthcheck-in app`.admins WHERE username=#{username}")
     Admin findAdminByUsername(String username);
+
+    @Select("SELECT * FROM `my healthcheck-in app`.admins WHERE admin_id = #{adminId}")
+    Admin findAdminById(Integer adminId);
 }

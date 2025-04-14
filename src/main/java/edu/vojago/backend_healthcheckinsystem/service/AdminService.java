@@ -5,4 +5,6 @@ import jakarta.validation.constraints.Pattern;
 
 public interface AdminService {
     Admin findAdminByUsername(@Pattern(regexp = "^\\S{5,16}$") String username);
+
+    Admin findAdminById(Integer adminId);
 }
