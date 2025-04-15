@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.vojago.backend_healthcheckinsystem.mapper.OperationLogMapper">
+    <!-- 分页查询操作日志 -->
+    <select id="listOperationLogs" resultType="edu.vojago.backend_healthcheckinsystem.pojo.OperationLog">
+        SELECT * FROM `my healthcheck-in app`.operation_logs
+        <where>
+            <if test="logId != null">
+                AND log_id = #{logId}
+            </if>
+            <if test="adminId != null">
+                AND admin_id = #{adminId}
+            </if>
+            <if test="actionType != null">
+                AND action_type = #{actionType}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+</mapper>

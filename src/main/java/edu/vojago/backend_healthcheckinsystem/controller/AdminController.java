@@ -1,6 +1,8 @@
 package edu.vojago.backend_healthcheckinsystem.controller;
 
 import edu.vojago.backend_healthcheckinsystem.pojo.Admin;
+import edu.vojago.backend_healthcheckinsystem.pojo.OperationLog;
+import edu.vojago.backend_healthcheckinsystem.pojo.PageBean;
 import edu.vojago.backend_healthcheckinsystem.pojo.Result;
 import edu.vojago.backend_healthcheckinsystem.service.AdminService;
 import edu.vojago.backend_healthcheckinsystem.service.OperationLogService;
@@ -86,6 +88,21 @@ public class AdminController {
         }
 
         return Result.success(admin);
+    }
+
+    //分页查询操作日志
+    @GetMapping
+    public Result<PageBean<OperationLog>> listOperationLogs(
+            Integer pageNum,
+            Integer pageSize,
+            @RequestParam() Integer adminId,
+//            @RequestParam(required = false) Integer adminId
+            @RequestParam(required = false) Integer logId,
+            @RequestParam(required = false) String actionType
+
+    ) {
+        PageBean<OperationLog> pb = operationLogService.listOperationLogs(pageNum, pageSize, logId, adminId, actionType);
+        return Result.success(pb);
     }
 
     @PostMapping("/disableUser")
