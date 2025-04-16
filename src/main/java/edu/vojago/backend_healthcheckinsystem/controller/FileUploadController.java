@@ -1,19 +1,18 @@
 package edu.vojago.backend_healthcheckinsystem.controller;
 
 import edu.vojago.backend_healthcheckinsystem.pojo.Result;
+import edu.vojago.backend_healthcheckinsystem.utils.AliyunOssUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 @RestController
 public class FileUploadController {
 
     @PostMapping("/upload")
-    public Result<String> uploadFile(MultipartFile file) throws IOException {
+    public Result<String> uploadFile(MultipartFile file) throws Exception {
         String originalFilename = file.getOriginalFilename();
         // 分割文件名和扩展名
         String[] splitName = originalFilename.split("\\.(?=[^\\.]+$)");
@@ -26,8 +25,9 @@ public class FileUploadController {
         // 构建新文件名
         String newFilename = nameWithoutExt + "_" + randomStr + extension;
 
-        file.transferTo(new File("E:\\Documents\\Project\\Android Health Check-In System\\TestFileStorage\\" + newFilename));
-        return Result.success("url-文件访问地址");
+//        file.transferTo(new File("E:\\Documents\\Project\\Android Health Check-In System\\TestFileStorage\\" + newFilename));
+        String ossUrl = AliyunOssUtil.ossUploadFile(newFilename, file.getInputStream());
+        return Result.success(ossUrl);
     }
 
 }
