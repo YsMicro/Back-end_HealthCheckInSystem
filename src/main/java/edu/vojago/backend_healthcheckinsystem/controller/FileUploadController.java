@@ -14,7 +14,7 @@ public class FileUploadController {
     @PostMapping("/upload")
     public Result<String> uploadFile(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
-        file.transferTo(new File("E:\\Desktop\\TestFileStorage" + originalFilename));
+        file.transferTo(new File("E:\\Documents\\Project\\Android Health Check-In System\\TestFileStorage\\" + originalFilename));
         return Result.success("url-文件访问地址");
     }
 }
