@@ -1,8 +1,8 @@
 server:
+  #  address: 0.0.0.0
   port: 8080
   servlet:
     context-path: /api
-
 
 spring:
   datasource:
@@ -10,6 +10,10 @@ spring:
     url: jdbc:mysql://localhost:3306/my healthcheck-in app
     username: root
     password: root
+  #    username: user_my_healthcheck-in_app
+  #    password: Mysql@8080
+  profiles:
+    active: dev
 #  security:
 #    user:
 #      name: user
