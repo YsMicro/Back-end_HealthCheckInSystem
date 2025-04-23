@@ -33,7 +33,7 @@ public class AdminController {
     public Result registerAdmin(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
         Admin admin = adminService.findAdminByUsername(username);
         if (!(admin == null)) {
-            return Result.error("用户已存在");
+            return Result.error("管理员已存在");
         }
         adminService.registerAdmin(username, password);
         Admin loginAdmin = adminService.findAdminByUsername(username);

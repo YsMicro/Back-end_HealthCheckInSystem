@@ -12,7 +12,8 @@
     <groupId>edu.vojago</groupId>
     <artifactId>Back-end_HealthCheckInSystem</artifactId>
     <!--    <version>0.0.1-SNAPSHOT</version>-->
-    <version>1.0.0-SNAPSHOT</version>
+    <!--    <version>1.0.0-SNAPSHOT</version>-->
+    <version>1.0.1</version>
     <name>Back-end_HealthCheckInSystem</name>
     <description>Back-end_HealthCheckInSystem</description>
     <url/>

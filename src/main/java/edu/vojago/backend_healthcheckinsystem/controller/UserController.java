@@ -26,7 +26,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    //查询
     //通过ID查询用户
     @RequestMapping("/findUserById")
     public User findUserById(Integer user_id) {
@@ -37,6 +36,22 @@ public class UserController {
     @RequestMapping("/findUserByName")
     public User findUserByName(String username) {
         return userService.findUserByName(username);
+    }
+
+    //删除用户
+    @PostMapping("/DeleteUserByName")
+    public Result DeleteUserByName(String username) {
+        userService.findUserByName(username);
+        if (findUserByName(username) == null) {
+            return Result.error("不存在此用户！");
+        } else {
+            userService.deleteUserByName(username);
+
+        }
+        if (findUserByName(username) == null) {
+            return Result.success("用户已删除");
+        }
+        return Result.error("删除失败");
     }
 
     //注册用户
@@ -56,21 +71,6 @@ public class UserController {
         }
     }
 
-    //删除用户
-    @PostMapping("/DeleteUserByName")
-    public Result DeleteUserByName(String username) {
-        userService.findUserByName(username);
-        if (findUserByName(username) == null) {
-            return Result.error("不存在此用户！");
-        } else {
-            userService.deleteUserByName(username);
-
-        }
-        if (findUserByName(username) == null) {
-            return Result.success("用户已删除");
-        }
-        return Result.error("删除失败");
-    }
 
     //用户登录
     @PostMapping("/login")
