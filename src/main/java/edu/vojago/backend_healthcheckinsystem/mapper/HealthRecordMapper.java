@@ -29,4 +29,7 @@ public interface HealthRecordMapper {
     //删除健康记录
     @Delete("DELETE FROM `my healthcheck-in app`.health_records WHERE record_id = #{recordId}")
     void deleteHealthRecord(Integer recordId);
+
+    @Select("SELECT * FROM `my healthcheck-in app`.health_records WHERE user_id = #{userId}")
+    List<HealthRecord> listHealthRecords(Integer userId);
 }

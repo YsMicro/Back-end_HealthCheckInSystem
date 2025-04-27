@@ -20,6 +20,7 @@ public class OperationLogServiceImpl implements OperationLogService {
         this.operationLogMapper = operationLogMapper;
     }
 
+    @Override
     public void logOperation(Integer adminId, String actionType, Integer targetId, String detail) {
         OperationLog operationLog = new OperationLog();
         operationLog.setAdminId(adminId);

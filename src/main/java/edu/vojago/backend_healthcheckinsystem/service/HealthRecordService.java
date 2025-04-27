@@ -1,6 +1,7 @@
 package edu.vojago.backend_healthcheckinsystem.service;
 
 import edu.vojago.backend_healthcheckinsystem.pojo.HealthRecord;
+import edu.vojago.backend_healthcheckinsystem.pojo.PageBean;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface HealthRecordService {
     void updateHealthRecord(HealthRecord healthRecord);
 
     void deleteHealthRecord(HealthRecord healthRecord);
+
+    PageBean<HealthRecord> listHealthRecords(Integer pageNum, Integer pageSize);
 }
