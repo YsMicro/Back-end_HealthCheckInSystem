@@ -30,7 +30,7 @@ public class HealthRecordController {
     public Result<PageBean<HealthRecord>> listHealthRecords(
             Integer pageNum,
             Integer pageSize,
-            @RequestParam() Integer userId/*,
+            @RequestParam(required = false) Integer userId/*,
 //            @RequestParam(required = false) Integer adminId
             @RequestParam(required = false) Integer logId,
             @RequestParam(required = false) String actionType*/
